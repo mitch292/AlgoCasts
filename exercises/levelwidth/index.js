@@ -11,6 +11,15 @@
 // 4       5
 // Answer: [1, 3, 2]
 
-function levelWidth(root) {}
+function levelWidth(root) {
+  let storage = {};
+  let traverseTree = (node, level) => {
+    !storage[level] ? storage[level] = 1 : storage[level]++;
+    node.children.forEach(child => traverseTree(child, level + 1));
+  }
+  traverseTree(root, 1);
+  return Object.values(storage);
+
+}
 
 module.exports = levelWidth;
