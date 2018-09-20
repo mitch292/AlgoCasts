@@ -118,6 +118,41 @@ class LinkedList {
     return null;
   }
 
+  removeAt(index) {
+    if (this.head === null) {
+      return null;
+    } else if (index === 0) {
+      return this.removeFirst()
+    }
+    let nodeBefore = this.getAt(index-1);
+    let nodeAfter = this.getAt(index+1);
+    nodeBefore.next = nodeAfter;
+  }
+
+  insertAt(data, index) {
+    if (this.head === null) {
+      this.head = new Node(data);
+      return;
+    } else if (index === 0) {
+      this.insertFirst(data);
+      return;
+    } else if (index >= this.size()) {
+      this.insertLast(data);
+      return;
+    }
+    let nodeBefore = this.getAt(index-1);
+    let nodeToMove = this.getAt(index);
+    nodeBefore.next = new Node(data, nodeToMove);
+  }
+
+  forEach(func) {
+    let node = this.head;
+    while (node) {
+      func(node);
+      node = node.next;
+    }
+  }
+
 }
 
 module.exports = { Node, LinkedList };
